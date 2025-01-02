@@ -273,7 +273,7 @@ def login():
     except Exception as error:
         print(f"{simbolo_erro} Erro: {error}") 
     try:
-        response = requests.get(url + "keys")
+        response = requests.get(url + "key")
         if response.status_code == 200:
             keys = response.json()
             print("=============[ " + Fore.RED + "Login" + Style.RESET_ALL + " ]=============")
