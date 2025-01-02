@@ -186,14 +186,22 @@ def deleteFriends():
                 response_delete = session.post(app_endpoint_url, json=data)
                 if response_delete.status_code == 200:
                     print(f"{simbolo} Amigos deletados!")
+                    sleep(4)
+                    menu()
                 else:
                     print(f"{simbolo_erro} Não foi possível deletar os amigos: {response_delete.status_code} - {response_delete.text}")
             except Exception as e:
                 print(f"{simbolo_erro} Erro: {e}")
+                sleep(4)
+                menu()
         else:
             print(f"{simbolo_erro} Erro: {response.status_code} - {response.text}")
+            sleep(4)
+            menu()
     except Exception as err:
         print(f"{simbolo} Não foi possível acessar a API!")
+        sleep(4)
+        menu()
 def menu():
     clear()
     # info script
