@@ -5,12 +5,13 @@ import requests
 import os
 from time import sleep
 from CarParkingMultiTool import LoginCarParking
-
+from carparktool import CarParkTool
 url = "https://samuca007.pythonanywhere.com/"
 url2 = "https://samuca007.pythonanywhere.com/"
 simbolo = "[" + Fore.RED + "+" + Style.RESET_ALL + "]"
 simbolo_erro = "[" + Fore.YELLOW + "+" + Style.RESET_ALL + "]"
-
+def pause():
+    input("..pressione enter para continuar..")
 class ip():
     def __init__(self, token):
         self.token = token
@@ -202,6 +203,26 @@ def deleteFriends():
         print(f"{simbolo} Não foi possível acessar a API!")
         sleep(4)
         menu()
+def create_account():
+    acess_key = "8FFC258232"
+    cpm = CarParkTool(acess_key)
+    email2 = input(f"{simbolo} Digite o email da nova conta >> ")
+    senha2 = input(f"{simbolo} Digite a senha da nova conta >> ")
+    status = cpm.register(email2, senha2)
+    if status == 0:
+        print("========[ " + Fore.RED + "Conta Registrada" + Style.RESET_ALL + " ]========")
+        print(f"{simbolo} Conta criada! \n{simbolo} Email: {email2} \n{simbolo} Senha: {senha2}")
+        pause()
+        menu()
+    elif status == 105:
+        print(f"{simbolo_erro} Erro: O email já está registrado!")
+        sleep(4)
+        menu()
+    else:
+        print(f"{simbolo_erro} Erro: Por favor tente novamente!")
+        sleep(4)
+        menu()
+
 def menu():
     clear()
     # info script
@@ -223,7 +244,7 @@ def menu():
     ipUserToken.ipUser()
     # Menu Hack
     print("========[ " + Fore.RED + "Menu" + Style.RESET_ALL + " ]================")
-    menuHack = f"{simbolo} Injetar Dinheiro - 1/{simbolo} Injetar Coins - 2/{simbolo} Desbloquear Todos Carros - 3/{simbolo} Desbloquear Animações - 4/{simbolo} Desbloquear Roupas - 5/{simbolo} Desbloquear Bandeiras - 6/{simbolo} Desbloquear Rodas - 7/{simbolo} Deletar Amigos - 8/{simbolo} Deletar Conta - 9/{simbolo} Sair - 0/"
+    menuHack = f"{simbolo} Injetar Dinheiro - 1/{simbolo} Injetar Coins - 2/{simbolo} Desbloquear Todos Carros - 3/{simbolo} Desbloquear Animações - 4/{simbolo} Desbloquear Roupas - 5/{simbolo} Desbloquear Bandeiras - 6/{simbolo} Desbloquear Rodas - 7/{simbolo} Deletar Amigos - 8/{simbolo} Deletar Conta - 9/{simbolo} Registrar Conta - 10/{simbolo} Sair - 0/"
     menuList = menuHack.split("/")
     for op in menuList:
         print(op)
@@ -247,6 +268,8 @@ def menu():
             deleteFriends()
         elif opUser == 9:
             delete()
+        elif opUser == 10:
+            create_account()
         elif opUser == 0:
             print(f"{simbolo} Saindo..")
         else:
