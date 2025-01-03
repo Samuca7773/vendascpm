@@ -249,7 +249,7 @@ def menu():
     for op in menuList:
         print(op)
     try:
-        opUser = int(input(f"{simbolo} Digite a opção desejada (1-8) >> "))
+        opUser = int(input(f"{simbolo} Digite a opção desejada (0-10) >> "))
         if opUser == 1:
             injectMoney()
         elif opUser == 2:
@@ -273,7 +273,7 @@ def menu():
         elif opUser == 0:
             print(f"{simbolo} Saindo..")
         else:
-            print(f"{simbolo_erro} Digite apenas números!")
+            print(f"{simbolo_erro} Erro, tente novamente!")
     except Exception as e:
         print(f"{simbolo} Erro: {e}")
         sleep(2)
