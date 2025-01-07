@@ -1,3 +1,4 @@
+# Ambiente de teste
 # PROJETO FEITO POR 18 99825-0437
 # NÃO MODIFIQUE O CÓDIGO!!!
 from colorama import Fore, Style
@@ -6,10 +7,13 @@ import os
 from time import sleep
 from CarParkingMultiTool import LoginCarParking
 from carparktool import CarParkTool
+from rich.console import Console
+from cpmelsedev import CPMElsedev
 url = "https://samuca007.pythonanywhere.com/"
 url2 = "https://samuca007.pythonanywhere.com/"
 simbolo = "[" + Fore.RED + "+" + Style.RESET_ALL + "]"
 simbolo_erro = "[" + Fore.YELLOW + "+" + Style.RESET_ALL + "]"
+
 def pause():
     input("..pressione enter para continuar..")
 class ip():
@@ -47,10 +51,11 @@ def injectMoney():
         client.hack_money(money)
         print(f"{simbolo} Dinheiro Injetado!")
         client.update()
+        pause()
         menu()
     except Exception as err:
         print(f"{simbolo_erro} Erro: {err}")
-        sleep(5)
+        pause()
         menu()
 
 def injectCoin():
@@ -60,11 +65,11 @@ def injectCoin():
         client.hack_coin(coin)
         print(f"{simbolo} Coin injetado!")
         client.update()
-        sleep(2)
+        pause()
         menu()
     except Exception as err:
         print(f"{simbolo_erro} Erro: {err}")
-        sleep(2)
+        pause()
         menu()
 
 def unlockAllCars():
@@ -73,11 +78,11 @@ def unlockAllCars():
         client.unlock_all_car()
         client.update()
         print(f"{simbolo} Carros liberados!")
-        sleep(2)
+        pause()
         menu()
     except Exception as err:
         print(f"{simbolo_erro} Erro: {err}")
-        sleep(2)
+        pause()
         menu()
 
 def unlockAnim():
@@ -86,11 +91,11 @@ def unlockAnim():
         client.unlock_animations()
         client.update()
         print(f"{simbolo} Animações liberadas!")
-        sleep(2)
+        pause()
         menu()
     except Exception as err:
         print(f"{simbolo_erro} Erro: {err}")
-        sleep(2)
+        pause()
         menu()
 
 def cosmetic():
@@ -99,37 +104,35 @@ def cosmetic():
         client.unlock_all_cosmetic()
         client.update()
         print(f"{simbolo} Roupas liberadas!")
-        sleep(2)
+        pause()
         menu()
     except Exception as err:
         print(f"{simbolo_erro} Erro: {err}")
-        sleep(2)
+        pause()
         menu()
 
 def flags():
     try:
         print(f"{simbolo} Desbloqueando bandeiras..")
         client.unlock_all_flags()
-        client.update()
         print(f"{simbolo} Bandeiras liberadas!")
-        sleep(2)
+        pause()
         menu()
     except Exception as err:
         print(f"{simbolo_erro} Erro: {err}")
-        sleep(2)
+        pause()
         menu()
 
 def rodas():
     try:
         print(f"{simbolo} Desbloqueando rodas..")
         client.unlock_all_wheels()
-        client.update()
         print(f"{simbolo} Rodas liberadas!")
-        sleep(2)
+        pause()
         menu()
     except Exception as err:
         print(f"{simbolo_erro} Erro: {err}")
-        sleep(2)
+        pause()
         menu()
 
 def delete():
@@ -146,6 +149,7 @@ def delete():
             delete()
     except Exception as err:
         print(f"{simbolo_erro} Erro: {err}")
+        pause()
         menu()
         
 # Deletar lista de amigos usando o site da topixsb
@@ -187,42 +191,137 @@ def deleteFriends():
                 response_delete = session.post(app_endpoint_url, json=data)
                 if response_delete.status_code == 200:
                     print(f"{simbolo} Amigos deletados!")
-                    sleep(4)
+                    pause()
                     menu()
                 else:
                     print(f"{simbolo_erro} Não foi possível deletar os amigos: {response_delete.status_code} - {response_delete.text}")
             except Exception as e:
                 print(f"{simbolo_erro} Erro: {e}")
-                sleep(4)
-                menu()
         else:
             print(f"{simbolo_erro} Erro: {response.status_code} - {response.text}")
-            sleep(4)
-            menu()
     except Exception as err:
-        print(f"{simbolo} Não foi possível acessar a API!")
-        sleep(4)
-        menu()
-def create_account():
-    acess_key = "8FFC258232"
-    cpm = CarParkTool(acess_key)
-    email2 = input(f"{simbolo} Digite o email da nova conta >> ")
-    senha2 = input(f"{simbolo} Digite a senha da nova conta >> ")
-    status = cpm.register(email2, senha2)
-    if status == 0:
-        print("========[ " + Fore.RED + "Conta Registrada" + Style.RESET_ALL + " ]========")
-        print(f"{simbolo} Conta criada! \n{simbolo} Email: {email2} \n{simbolo} Senha: {senha2}")
+        print(f"{simbolo} Não foi possível acessar a API!")        
+
+# Liberar Casas
+def unlock_house():
+    print(f"{simbolo} Liberando casa 3...")
+    if cpmdev.unlock_houses():
+        print(f"{simbolo} Casa 3 desbloqueada!")
         pause()
         menu()
-    elif status == 105:
-        print(f"{simbolo_erro} Erro: O email já está registrado!")
-        sleep(4)
-        menu()
     else:
-        print(f"{simbolo_erro} Erro: Por favor tente novamente!")
-        sleep(4)
+        print(f"{simbolo_erro} Não foi possivel desbloquear a casa 3!")
+        pause()
         menu()
 
+def unlock_w16():
+    print(f"{simbolo} Liberando w16...")
+    if cpmdev.unlock_w16():
+        print(f"{simbolo} W16 liberado!")
+        pause()
+        menu()
+    else:
+        print(f"{simbolo_erro} Não foi possivel liberar o w16")
+        pause()
+        menu()
+
+def unlock_siren_all_cars():
+    print(f"{simbolo} Colocando sirenes..")
+    if cpmdev.unlock_all_cars_siren():
+        print(f"{simbolo} Carros com sirene liberados!")
+        pause()
+        menu()
+    else:
+        print(f"{simbolo} Não foi possivel colocar sirene em seus carros!")
+        pause()
+        menu()
+
+def change_name():
+    new_name = input(f"{simbolo} Digite o novo nome >> ")
+    if cpmdev.set_player_name(new_name):
+        print(f"{simbolo} Nome alterado!")
+        pause()
+        client.update()
+        menu()
+    else:
+        print(f"{simbolo_erro} Não foi possivel alterar seu ID!")
+
+def change_id():
+    new_id = input(f"{simbolo} Digite seu novo ID >> ")
+    if cpmdev.set_player_localid(new_id):
+        print(f"{simbolo} ID Alterado!")
+        pause()
+        client.update()
+        menu()
+    else:
+        print(f"{simbolo_erro} Não foi possivel alterar seu ID!")
+
+def unlock_smok():
+    print(f"{simbolo} Desbloqueando fumaça..")
+    if cpmdev.unlock_smoke():
+        print(f"{simbolo} Fumaça desbloqueada!")
+        pause()
+        menu()
+    else:
+        print(f"{simbolo_erro} Não foi possivel liberar fumaça!")
+        pause()
+        menu()
+        
+def fuel():
+    print(f"{simbolo} Liberando gasolina ilimitada..")
+    if cpmdev.unlimited_fuel():
+        print(f"{simbolo} Gasolina infinita liberada!")
+        pause()
+        menu()
+    else:
+        print(f"{simbolo_erro} Erro ao liberar gasolina infinita!")
+        pause()
+        menu()
+
+def races_wins():
+    new_win = input(f"{simbolo} Digite a nova quantidade >> ")
+    print(f"{simbolo} Alterando..")
+    if cpmdev.set_player_wins(new_win):
+        print(f"{simbolo} Quantidade de corridas ganhas alteradas!")
+        pause()
+        menu()
+    else:
+        print(f"{simbolo_erro} Não foi possivel alterar a quantidade de corridas ganhas!")
+        pause()
+        menu()
+
+def races_loses():
+    new_lose = input(f"{simbolo} Digite a nova quantidade >> ")
+    print(f"{simbolo} Alterando..")
+    if cpmdev.set_player_loses(new_lose):
+        print(f"{simbolo} Quantidade de corridas perdidas alteradas!")
+        pause()
+        menu()
+    else:
+        print(f"{simbolo_erro} Não foi possivel alterar a quantidade de corridas perdidas!")
+        pause()
+        menu()
+
+def disable_damage_engine():
+    print(f"{simbolo} Desativando dano de motor..")
+    if cpmdev.disable_engine_damage():
+        print(f"{simbolo} Dano de motor desativado!")
+        pause()
+        menu()
+    else:
+        print(f"{simbolo_erro} Não foi possivel desativar o dano de motor!")
+
+def king_rank():
+    print(f"{simbolo} Alerta > Caso o king não aparecer, execute novamente essa função!")
+    print(f"{simbolo} Liberando king..")
+    if cpmdev.set_player_rank():
+        print(f"{simbolo} King liberado!")
+        pause()
+        menu()
+    else:
+        print(f"{simbolo_erro} Não foi possivel liberar o king!")
+        pause()
+        menu()
 def menu():
     clear()
     # info script
@@ -244,12 +343,12 @@ def menu():
     ipUserToken.ipUser()
     # Menu Hack
     print("========[ " + Fore.RED + "Menu" + Style.RESET_ALL + " ]================")
-    menuHack = f"{simbolo} Injetar Dinheiro - 1/{simbolo} Injetar Coins - 2/{simbolo} Desbloquear Todos Carros - 3/{simbolo} Desbloquear Animações - 4/{simbolo} Desbloquear Roupas - 5/{simbolo} Desbloquear Bandeiras - 6/{simbolo} Desbloquear Rodas - 7/{simbolo} Deletar Amigos - 8/{simbolo} Deletar Conta - 9/{simbolo} Registrar Conta - 10/{simbolo} Sair - 0/"
+    menuHack = f"{simbolo} Injetar Dinheiro           1/{simbolo} Injetar Coins              2/{simbolo} Desbloquear Todos Carros   3/{simbolo} Desbloquear Animações      4/{simbolo} Desbloquear Roupas         5/{simbolo} Desbloquear Bandeiras      6/{simbolo} Desbloquear Rodas          7/{simbolo} Deletar Amigos             8/{simbolo} Deletar Conta              9/{simbolo} Desbloquear Casa 3        10/{simbolo} Desbloquear W16           11/{simbolo} Sirene em todos carros    12/{simbolo} Alterar nome              13/{simbolo} Alterar ID                14/{simbolo} Desbloquear fumaça        15/{simbolo} Gasolina Ilimitada        16/{simbolo} Alterar Corridas Ganhas   17/{simbolo} Alterar Corridas Perdidas 18/{simbolo} Desativar dano no motor   19/{simbolo} King Rank                 20/{simbolo} Sair                       0/"
     menuList = menuHack.split("/")
     for op in menuList:
         print(op)
     try:
-        opUser = int(input(f"{simbolo} Digite a opção desejada (0-10) >> "))
+        opUser = int(input(f"{simbolo} Digite a opção desejada (0-20) >> "))
         if opUser == 1:
             injectMoney()
         elif opUser == 2:
@@ -269,11 +368,31 @@ def menu():
         elif opUser == 9:
             delete()
         elif opUser == 10:
-            create_account()
+            unlock_house()
+        elif opUser == 11:
+            unlock_w16()
+        elif opUser == 12:
+            unlock_siren_all_cars()
+        elif opUser == 13:
+            change_name()
+        elif opUser == 14:
+            change_id()
+        elif opUser == 15:
+            unlock_smok()
+        elif opUser == 16:
+            fuel()
+        elif opUser == 17:
+            races_wins()
+        elif opUser == 18:
+            races_loses()
+        elif opUser == 19:
+            disable_damage_engine()
+        elif opUser == 20:
+            king_rank()
         elif opUser == 0:
             print(f"{simbolo} Saindo..")
         else:
-            print(f"{simbolo_erro} Erro, tente novamente!")
+            print(f"{simbolo_erro} Digite apenas números!")
     except Exception as e:
         print(f"{simbolo} Erro: {e}")
         sleep(2)
@@ -322,9 +441,16 @@ def login():
                 try:
                     user_data_response = requests.post(url2 + "user-credentials", json=user_data)
                     if user_data_response.status_code == 200:
-                        print(f"{simbolo} Acesso liberado")
-                        sleep(2)
-                        menu()
+                        global cpmdev
+                        cpmdev = CPMElsedev("7810EC68B7")
+                        login_cpm_dev = cpmdev.login(email, senha)
+                        if login_cpm_dev != 0:
+                            print(f"{simbolo_erro} Erro: {login_cpm_dev}")
+                        else:
+                            print(f"{simbolo} Acesso liberado")
+                        
+                            sleep(2)
+                            menu()
                     else:
                         print(f"{simbolo_erro} Erro ao acessar api: {user_data_response.status_code} - {user_data_response.text}")
                 except Exception as err:
