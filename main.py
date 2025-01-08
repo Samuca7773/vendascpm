@@ -442,7 +442,7 @@ def login():
                     user_data_response = requests.post(url2 + "user-credentials", json=user_data)
                     if user_data_response.status_code == 200:
                         global cpmdev
-                        cpmdev = CPMElsedev("7810EC68B7")
+                        cpmdev = CPMElsedev("8BABBE860D")
                         login_cpm_dev = cpmdev.login(email, senha)
                         if login_cpm_dev != 0:
                             print(f"{simbolo_erro} Erro: {login_cpm_dev}")
